@@ -15,11 +15,11 @@ export default function TabOneScreen() {
   const [name,setname]=useState('');
   const [gender,setgender]=useState('');
   const [profiles,setprofiles]=useState('');
-  const [arr,setarr]=useState([]);
-  const { address, isConnecting, isDisconnected } = useAccount();
+  const { address} = useAccount();
   const [id, setid] = useState('');
-  const [enable,setenable]=useState(false);
   console.log("Address", address);
+
+  ////////////////////// READING & SETING A BASIC UINT VALUE ////////////////////////
   const {data:data1} = useContractRead({
     address: '0x5b30Cd2bb5d4c2aE954b57c8c24cf5db3507C35e',
     abi:[
@@ -87,8 +87,9 @@ export default function TabOneScreen() {
     chainId:11155111
   })
   const { data, write, isLoading, isSuccess, isError, error } = useContractWrite(config)
-
-  const {data:data2, isError:e, error:err} = useContractRead({
+/////////////////////////////////////////////////////
+  
+  const {data:data2, isError:e, error:err} = useContractRead({ // READING THE USER DETAILS
     address: '0x0EA02C5AFcC94762934c83eA88D84fbC2aB0dFfc',
     abi:[{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"adduser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"curr_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gas2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gasUsed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getuser","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"updateuser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"user_track","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"}],"stateMutability":"view","type":"function"}],
     functionName:'getuser',
@@ -98,7 +99,7 @@ export default function TabOneScreen() {
     watch:true
   });
 
-  const {data:curr_id} = useContractRead({
+  const {data:curr_id} = useContractRead({ // FETCHING THE CURRENY ID
     address: '0x0EA02C5AFcC94762934c83eA88D84fbC2aB0dFfc',
     abi: [{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"adduser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"curr_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gas2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gasUsed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getuser","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"updateuser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"user_track","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"}],"stateMutability":"view","type":"function"}],
     functionName:'curr_id',
@@ -109,7 +110,7 @@ export default function TabOneScreen() {
 
 
 
-  const {config:config2} = usePrepareContractWrite({
+  const {config:config2} = usePrepareContractWrite({ // CREATING A NEW USER
     address: '0x0EA02C5AFcC94762934c83eA88D84fbC2aB0dFfc',
     abi:[{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"adduser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"curr_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gas2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gasUsed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getuser","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"updateuser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"user_track","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"}],"stateMutability":"view","type":"function"}],
     functionName:'adduser',
@@ -124,21 +125,19 @@ export default function TabOneScreen() {
       setTimeout(() => reset(), 10000)
 
   }});
+///////////////////////////////////////////
 
-  const {config:config3} = usePrepareContractWrite({
+  const {config:config3} = usePrepareContractWrite({  // UPDATING AN EXISTING USER DETAILS
     address: '0x0EA02C5AFcC94762934c83eA88D84fbC2aB0dFfc',
-    abi:[{"inputs":[{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"name":"adduser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"curr_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getuser","outputs":[{"internalType":"uint256","name":"","type":"uint256"},{"internalType":"string","name":"","type":"string"},{"internalType":"string","name":"","type":"string"},{"internalType":"string[]","name":"","type":"string[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"name":"updateuser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"user_track","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"}],"stateMutability":"view","type":"function"}],
+    abi:[{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"adduser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"curr_id","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gas2","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"gasUsed","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getuser","outputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"components":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"},{"internalType":"string[]","name":"profiles","type":"string[]"}],"internalType":"struct Details.User","name":"_userdetails","type":"tuple"}],"name":"updateuser","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"user_track","outputs":[{"internalType":"uint256","name":"id","type":"uint256"},{"internalType":"uint256","name":"age","type":"uint256"},{"internalType":"string","name":"name","type":"string"},{"internalType":"string","name":"gender","type":"string"}],"stateMutability":"view","type":"function"}],
     functionName:'updateuser',
     chainId:11155111,
     args:[[id, parseInt(age),name,gender,profiles.split(',')]]
   });
   const {data:d3, write:w3, isLoading:i3, isSuccess:is3, isError:e3, error:err3} = useContractWrite(config3);
-  const result2 = useWaitForTransaction({
-    hash: d3?.hash,
-  });
+  const result2 = useWaitForTransaction({ hash: d3?.hash});
   useEffect(() => {if(result2.isSuccess){
       setTimeout(() => reset(), 10000)
-
   }});
 
 
@@ -167,6 +166,8 @@ export default function TabOneScreen() {
         </View>)}
       { isError && (<View><Text> Something is Wrong : {JSON.stringify(error?.details)} </Text></View>)}
 
+      
+      {/* USER DETAILS SECTION */}
       <View style={styles2.container}>
         <View style={{ flexDirection:'row'}}>
         <TextInput
@@ -179,25 +180,26 @@ export default function TabOneScreen() {
         { e && display && (<View><Text> ERROR: {JSON.stringify(err.shortMessage)}</Text></View>)}
         {display && !e && !update_display && (
           <View>
-            <Text>NAME : {data2?.[1]}</Text>
-            <Text>AGE : {parseInt(data2?.[0])}</Text>
-            <Text>GENDER : {data2?.[2]}</Text>
+            <Text>NAME : {data2?.name}</Text>
+            <Text>AGE : {parseInt(data2?.age)}</Text>
+            <Text>GENDER : {data2?.gender}</Text>
             <View style={{ flexDirection: 'row' }}>
               <Text>JOB PROFILES : </Text>
-            {data2?.[3].map((element, index) => (
+            {data2?.profiles.map((element, index) => (
               <Text key={index}>{element}   </Text>
             ))}
             </View>
             <Button title="Update Details" onPress={() => {setupdate_display(true)}}></Button>
           </View>
         )}
+        {/* UPDATING USER */}
         {display && !e && update_display && (
           <View>
             <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }} placeholder="NAME" onChangeText={name => setname(name)} value={name}></TextInput>
             <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }} placeholder="AGE" onChangeText={age => setage(age)} value={age} keyboardType="numeric"></TextInput>
             <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }} placeholder="GENDER" onChangeText={gender => setgender(gender)} value={gender}></TextInput>
             <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }} placeholder="PROFILES in Array" onChangeText={profiles => setprofiles(profiles)} value={profiles}></TextInput>
-            <Button title="UPDATE USER" disabled={age=='0'|| age=='' || name==''}onPress={() => {w3?.()}} ></Button>
+            <Button title="UPDATE USER" onPress={() => {w3?.()}} disabled={age=='0'|| age=='' || name==''}></Button>
             {i3 && (<Text> LOADING ... </Text>)}
             {result2.isSuccess && (<Text> USER UPDATED SUCCESSFULLY! </Text>) }
             {e3 && (<Text>ERROR : {JSON.stringify(err3?.details)}</Text>)}
@@ -205,7 +207,7 @@ export default function TabOneScreen() {
 
         )}
     </View>
-
+     {/* CREATING A NEW USER */}
     <View style={styles2.container}>
     <Button title="Create New User" onPress={() => {setdisplayadduser(!adduser)}}></Button>
     {adduser && (
